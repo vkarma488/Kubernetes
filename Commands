@@ -1,0 +1,37 @@
+🚀 Reproduction Steps
+1. Cluster Initialization & Deployment
+First, ensure your Kubernetes cluster (Kind/Minikube) is running within Docker, then deploy the application:
+
+Bash
+# Apply the tutorial deployment (replace with your actual file if you have one)
+kubectl create deployment my-app --image=nginx
+
+# Verify the initial rollout
+kubectl get deployments
+kubectl get pods
+2. Networking & Verification
+To access the application from your Windows browser, establish a tunnel from your WSL terminal:
+
+Bash
+# Forward traffic from local port 8080 to the container's port 80
+kubectl port-forward deployment/my-app 8080:80
+Note: Keep this terminal open and visit http://localhost:8080 to generate traffic.
+
+3. Scaling for High Availability
+Simulate a traffic spike or redundancy by scaling the application to multiple replicas:
+
+Bash
+# Scale the deployment to 3 pods
+kubectl scale deployment/my-app --replicas=3
+
+# Verify the pods are distributed and running
+kubectl get pods -o wide
+4. Observability & Request Tracing
+To identify exactly which pod and node are serving your live requests, use these debugging commands:
+
+Bash
+# Stream aggregated logs from all replicas with pod name prefixes
+kubectl logs -l app=my-app --tail=10 -f --prefix
+
+# In a separate terminal, map the pod name from the logs to its host node
+kubectl get pods -o wide
