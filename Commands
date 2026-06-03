@@ -35,3 +35,24 @@ kubectl logs -l app=my-app --tail=10 -f --prefix
 
 # In a separate terminal, map the pod name from the logs to its host node
 kubectl get pods -o wide
+
+
+# Shutdown
+#stop  Port forwarding 
+ps aux| grep port-forward - you get grep pid too
+ps aux| grep [p]ort-forward - avoid grep pid
+kill <PID>
+
+#All powerful 
+pkill -f "kubectl port-forward"
+
+
+
+# shutdown cluster
+kubectl scale deployment/my-app --replicas=0
+
+kubectl delete deployment/my-app
+
+kubectl get deployments 
+kubectl get pods
+
