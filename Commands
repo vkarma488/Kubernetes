@@ -56,3 +56,7 @@ kubectl delete deployment/my-app
 kubectl get deployments 
 kubectl get pods
 
+
+# Docker Migration to cloud
+Prune the desktop docker
+docker system prune -a --volumes
